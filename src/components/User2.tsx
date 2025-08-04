@@ -1,7 +1,11 @@
-export default function User({
-  userObj: { name, age, gender },
+export default function User2({
+  name,
+  age,
+  gender,
 }: {
-  userObj: { name: string; age: number; gender: string };
+  name: string;
+  age: number;
+  gender: string;
 }) {
   return (
     <>
