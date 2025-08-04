@@ -3,25 +3,28 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 
 export default function App() {
-  // 기본 자료형
-  const primitiveString = "Hello, World ! ";
-  const primitiveNumber = 42;
-  const primitiveBoolean = false;
-  const primitiveUndefinde = undefined;
-  const primitiveNull = null;
-  const primitiveSymbol = Symbol("mySymbol");
-  const primitiveBigInt = 9007199254740991n;
+  // 참조 자료형 예제
+  const referenceArray = [1, 2, 3, 4];
+  const referenceObject = { name: "John", age: 30 };
+  const referenceFunction = () => "함수의 리턴 값";
+  const referenceDate = new Date();
+  const referenceRegExp = /react/i;
+  const referenceMap = new Map([
+    ["key1", "value1"],
+    ["key2", "value2"],
+  ]);
+  const referenceSet = new Set([1, 2, 3, 4]);
 
   return (
     <>
-      <h2>기본 자료형 출력</h2>
-      <p>문자열: {primitiveString}</p>
-      <p>숫자: {primitiveNumber}</p>
-      <p>논리형: {primitiveBoolean.toString()}</p>
-      <p>undefined: {String(primitiveUndefinde)}</p>
-      <p>null: {String(primitiveNull)}</p>
-      <p>symbol: {String(primitiveSymbol)}</p>
-      <p>BigInt: {primitiveBigInt}</p>
+      <h2>참조 자료형 출력</h2>
+      <p>배열: {referenceArray}</p>
+      <p>객체: {JSON.stringify(referenceObject)}</p>
+      <p>function: {referenceFunction.toString()}</p>
+      <p>date: {referenceDate.toString()}</p>
+      <p>regExp: {referenceRegExp.toString()}</p>
+      <p>map: {JSON.stringify(Array.from(referenceMap))}</p>
+      <p>set: {JSON.stringify(Array.from(referenceSet))}</p>
     </>
   );
 }
