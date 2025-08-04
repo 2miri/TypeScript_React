@@ -1,11 +1,10 @@
-import Button from "./components/Button";
+import UserProfile from "./components/UserProfile";
+
 export default function App() {
   return (
     <>
-      <Button>
-        <em>Login</em>
-      </Button>
-      <Button>Logout</Button>
+      <UserProfile name="Alice" age={30} isAdmin={true} />
+      <UserProfile name="Bob" age={25} isAdmin={false} />
     </>
   );
 }
