@@ -1,17 +1,11 @@
-import User from "./components/User";
-import User2 from "./components/User2";
-
+import Button from "./components/Button";
 export default function App() {
-  const userObj = {
-    name: "jack",
-    age: 20,
-    gender: "male",
-  };
-
   return (
     <>
-      <User userObj={userObj} />
-      <User2 {...userObj} />
+      <Button>
+        <em>Login</em>
+      </Button>
+      <Button>Logout</Button>
     </>
   );
 }
