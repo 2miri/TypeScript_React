@@ -1,11 +1,11 @@
 export default function Table() {
   return (
     <>
-      <table border={1} onClick={() => console.log("table")}>
-        <tbody onClick={() => console.log("tbody")}>
-          <tr onClick={() => console.log("tr")}>
+      <table border={1} onClickCapture={() => console.log("table")}>
+        <tbody onClickCapture={() => console.log("tbody")}>
+          <tr onClickCapture={() => console.log("tr")}>
             <td
-              onClick={(event) => {
+              onClickCapture={(event) => {
                 event.stopPropagation();
                 console.log("td");
               }}
