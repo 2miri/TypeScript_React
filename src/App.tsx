@@ -1,26 +1,32 @@
 import { useState } from "react";
 
 export default function App() {
-  const [count, setCount] = useState(0);
+  const [userInfo, setUserInfo] = useState({
+    name: "jack",
+    age: 20,
+    gender: "male",
+  });
 
-  function handleIncrement() {
-    setCount((count) => count + 1);
-  }
+  const handleUpdateUserInfo = () => {
+    // 객체의 일부만 변경시
+    // setUserInfo((userInfo) => ({
+    //   ...userInfo,
+    //   name: "mike",
+    // }));
 
-  function handleDecrement() {
-    setCount((count) => count - 1);
-  }
-
-  function handleReset() {
-    setCount(0);
-  }
-
+    // 모든 값을 업데이트가 확실할때
+    setUserInfo({
+      name: "mike",
+      age: 30,
+      gender: "female",
+    });
+  };
   return (
     <>
-      <h1>Count : {count}</h1>
-      <button onClick={handleIncrement}>증가</button>
-      <button onClick={handleDecrement}>감소</button>
-      <button onClick={handleReset}>리셋</button>
+      <p>name: {userInfo.name}</p>
+      <p>age: {userInfo.age}</p>
+      <p>gender: {userInfo.gender}</p>
+      <button onClick={handleUpdateUserInfo}>UpdateUserInfo</button>
     </>
   );
 }
