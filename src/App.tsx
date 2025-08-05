@@ -1,17 +1,18 @@
-import Button from "./components/ui/Button";
+import { useState } from "react";
 
 export default function App() {
-  const handleClick = (message: string) => {
-    alert(message);
+  const [state, setState] = useState<number | string>(0);
+  const [isShow, setIsShow] = useState(true);
+  const handleSetToTen = () => {
+    setState("10");
+    setIsShow(false);
   };
+
   return (
     <>
-      <Button message="test" handleClick={handleClick}>
-        button
-      </Button>
-      <Button message="test2" handleClick={handleClick}>
-        button2
-      </Button>
+      <h1>state: {state}</h1>
+      <h1>show: {isShow.toString()} </h1>
+      <button onClick={handleSetToTen}>Set to 10</button>
     </>
   );
 }
