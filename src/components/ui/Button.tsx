@@ -1,14 +1,19 @@
+import type React from "react";
+
+interface buttonProps {
+  message: string;
+  children: React.ReactNode;
+  handleClick: (message: string) => void;
+}
+
 export default function Button({
+  message,
+  children,
   handleClick,
-}: {
-  handleClick: (
-    message: string,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
-}) {
+}: buttonProps) {
   return (
     <>
-      <button onClick={(event) => handleClick("hello", event)}>클릭</button>
+      <button onClick={() => handleClick(message)}>{children}</button>
     </>
   );
 }

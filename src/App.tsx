@@ -1,20 +1,17 @@
+import Button from "./components/ui/Button";
+
 export default function App() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleClick = (message: string) => {
+    alert(message);
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <a
-          href="https://ko.wikipedia.org/"
-          onClick={(event) => {
-            event.preventDefault();
-          }}
-        >
-          위키피디아
-        </a>
-        <button type="submit">전송</button>
-      </form>
+      <Button message="test" handleClick={handleClick}>
+        button
+      </Button>
+      <Button message="test2" handleClick={handleClick}>
+        button2
+      </Button>
     </>
   );
 }
