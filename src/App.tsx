@@ -5,27 +5,45 @@ export default function App() {
     name: "jack",
     age: 20,
     gender: "male",
+    contact: {
+      email: "jack@example.com",
+      phone: "123-456-7890",
+    },
+    address: {
+      home: {
+        street: "123 Main St",
+        city: "New York",
+        zipCode: "10001",
+      },
+      office: {
+        street: "456 Business Ave",
+        city: "New York",
+        zipCode: "10002",
+      },
+    },
   });
 
   const handleUpdateUserInfo = () => {
-    // 객체의 일부만 변경시
-    // setUserInfo((userInfo) => ({
-    //   ...userInfo,
-    //   name: "mike",
-    // }));
-
-    // 모든 값을 업데이트가 확실할때
-    setUserInfo({
+    setUserInfo((userInfo) => ({
+      ...userInfo,
       name: "mike",
-      age: 30,
-      gender: "female",
-    });
+      contact: {
+        ...userInfo.contact,
+        email: "mike@naver.com",
+      },
+      address: {
+        ...userInfo.address,
+        home: {
+          ...userInfo.address.home,
+          street: "111 main st",
+        },
+      },
+    }));
   };
+
   return (
     <>
-      <p>name: {userInfo.name}</p>
-      <p>age: {userInfo.age}</p>
-      <p>gender: {userInfo.gender}</p>
+      <pre>{JSON.stringify(userInfo, null, 2)}</pre>
       <button onClick={handleUpdateUserInfo}>UpdateUserInfo</button>
     </>
   );
