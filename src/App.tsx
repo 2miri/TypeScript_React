@@ -1,26 +1,14 @@
-import { useState } from "react";
-import TrafficLight from "./components/TrafficLight";
+import GuestView from "./components/GuestView";
+import UserView from "./components/UserView";
 
 export default function App() {
-  const [light, setLight] = useState("red");
-
-  function handleLight() {
-    setLight((light) => {
-      switch (light) {
-        case "red":
-          return "yellow";
-        case "yellow":
-          return "green";
-        case "green":
-          return "red";
-        default:
-          return "red";
-      }
-    });
-  }
+  const isLogin = true;
+  const components = isLogin ? <UserView /> : <GuestView />;
   return (
     <>
-      <TrafficLight light={light} handleLight={handleLight} />
+      {/* <h1>{isLogin ? "Welcome" : "pls sign up"}</h1> */}
+      {/* {isLogin ? <UserView /> : <GuestView />} */}
+      {components}
     </>
   );
 }
