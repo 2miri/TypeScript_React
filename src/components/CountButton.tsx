@@ -1,17 +1,19 @@
+import type { ActionDispatch } from "react";
+
 export default function CountButton({
-  handleIncrement,
-  handleDecrement,
-  handleReset,
+  countDispatch,
 }: {
-  handleIncrement: () => void;
-  handleDecrement: () => void;
-  handleReset: () => void;
+  countDispatch: ActionDispatch<[action: { type: string }]>;
 }) {
   return (
     <>
-      <button onClick={handleIncrement}>Increment</button>
-      <button onClick={handleDecrement}>Decrement</button>
-      <button onClick={handleReset}>Reset</button>
+      <button onClick={() => countDispatch({ type: "increment" })}>
+        Increment
+      </button>
+      <button onClick={() => countDispatch({ type: "decrement" })}>
+        Decrement
+      </button>
+      <button onClick={() => countDispatch({ type: "reset" })}>Reset</button>
     </>
   );
 }
