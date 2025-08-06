@@ -1,21 +1,10 @@
-import { useState } from "react";
-import LoginStatus from "./components/LoginStatus";
+import StatusMessage from "./components/StatusMessage";
 
 export default function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  function handleLogin() {
-    setIsLogin(true);
-  }
-  function handleLogout() {
-    setIsLogin(false);
-  }
+  const status = "loading";
   return (
     <>
-      <LoginStatus
-        isLogin={isLogin}
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
-      />
+      <StatusMessage status={status} />
     </>
   );
 }
