@@ -1,10 +1,21 @@
-import Greeting from "./components/Greeting";
+import { useState } from "react";
+import LoginStatus from "./components/LoginStatus";
 
 export default function App() {
-  const isLoggedIn = false;
+  const [isLogin, setIsLogin] = useState(false);
+  function handleLogin() {
+    setIsLogin(true);
+  }
+  function handleLogout() {
+    setIsLogin(false);
+  }
   return (
     <>
-      <Greeting isLoggedIn={isLoggedIn}></Greeting>
+      <LoginStatus
+        isLogin={isLogin}
+        handleLogin={handleLogin}
+        handleLogout={handleLogout}
+      />
     </>
   );
 }
