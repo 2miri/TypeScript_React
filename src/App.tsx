@@ -1,12 +1,9 @@
-import Inline from "./components/Inline";
-
-// 인라인 스타일 방법
+import Global from "./components/Global";
 export default function App() {
-  const isLogin = true;
-  const h1Style = { color: isLogin ? "red" : "blue", fontSize: "25px" };
   return (
     <>
-      <Inline h1Style={h1Style} />
+      <h1 className="title">App Component</h1>
+      <Global />
     </>
   );
 }
