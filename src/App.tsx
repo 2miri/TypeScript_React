@@ -1,8 +1,10 @@
-import Count from "./components/Count";
+import Greeting from "./components/Greeting";
+
 export default function App() {
+  const isLoggedIn = false;
   return (
     <>
-      <Count />
+      <Greeting isLoggedIn={isLoggedIn}></Greeting>
     </>
   );
 }
