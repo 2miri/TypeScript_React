@@ -1,18 +1,9 @@
-import classNames from "classnames/bind";
-import styles from "./App.module.css";
-
+import ButtonGroup from "./components/ButtonGroup";
+import { initialButtons } from "./data/initialData";
 export default function App() {
-  const isLogin = false;
-  const cx = classNames.bind(styles);
   return (
     <>
-      <button className={`${styles.btn} ${styles["is-active"]}`}>버튼</button>
-      <button className={cx("btn", "is-active")}>버튼</button>
-
-      <button className={`${styles.btn} ${isLogin ? styles["is-active"] : ""}`}>
-        버튼
-      </button>
-      <button className={cx("btn", { "is-active": isLogin })}>버튼</button>
+      <ButtonGroup buttons={initialButtons} />
     </>
   );
 }
