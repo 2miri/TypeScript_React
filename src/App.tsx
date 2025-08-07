@@ -1,4 +1,9 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+
+const boxShadowMixin = css`
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+  margin: 20px;
+`;
 
 const fadeIn = keyframes`
 from{
@@ -23,14 +28,15 @@ const Wrapper = styled.section`
   border: 1px solid red;
 `;
 
-const BlueBorderWrapper = styled(Wrapper)`
+const BlueBorderWrapper = styled(Wrapper)<{ $shadow: boolean }>`
   border-color: blue;
+  ${(props) => props.$shadow && boxShadowMixin}
 `;
 
 export default function App() {
   return (
     <>
-      <BlueBorderWrapper>
+      <BlueBorderWrapper $shadow>
         <Title $color="blue" $decoration="line-through" as="p">
           Hello, ReactJS!
         </Title>
