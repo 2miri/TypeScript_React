@@ -1,9 +1,19 @@
-import ButtonGroup from "./components/ButtonGroup";
-import { initialButtons } from "./data/initialData";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  color: red;
+  text-decoration: underline;
+`;
+const Wrapper = styled.section`
+  padding: 2rem;
+  border: 1px solid red;
+`;
 export default function App() {
   return (
     <>
-      <ButtonGroup buttons={initialButtons} />
+      <Wrapper>
+        <Title>Hello, ReactJS!</Title>
+      </Wrapper>
     </>
   );
 }
