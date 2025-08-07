@@ -3,9 +3,13 @@ export default function App() {
     <>
       <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
         <button className="button"> click me</button>
-        <button className="bg-green-500 text-white py-3 px-5 rounded border-none cursor-pointer transition-colors duration-300 hover:bg-green-600 ">
+        <button
+          className="bg-green-500 text-white py-3 px-5 rounded 
+        border-none cursor-pointer transition-colors duration-300 hover:bg-green-600 "
+        >
           click me
         </button>
+        <button className="btns">click me</button>
       </div>
     </>
   );
