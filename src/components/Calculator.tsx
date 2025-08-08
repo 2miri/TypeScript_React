@@ -1,6 +1,24 @@
 import { useState } from "react";
 import CalculatorButton from "./CalculatorButton";
 
+const performCalculation = (
+  prev: number,
+  current: number,
+  operation: string
+) => {
+  switch (operation) {
+    case "+":
+      return prev + current;
+    case "-":
+      return prev - current;
+    case "*":
+      return prev * current;
+    case "/":
+      return prev / current;
+    default:
+      return current;
+  }
+};
 export default function Calculator() {
   const [calculatorState, setCalculatorState] = useState<CalculatorState>({
     currentNumber: "0", // 현재 입력/표시되는 숫자
@@ -8,14 +26,53 @@ export default function Calculator() {
     operation: null, // 현재 선택된 연산자 ("+", "-", "/", "*")
     isNewNumber: true, // 새로운 숫자 입력 여부
   });
+
   const handleClear = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log(e.currentTarget.value);
   };
+
+  // "+", "-", "*", "/", "=" 클릭했을 때 실행되는 함수
   const handleOperator = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     console.log(e.currentTarget.value);
+    const operator = e.currentTarget.value;
+    setCalculatorState((calculatorState) => {
+      const current = parseFloat(calculatorState.currentNumber);
+      if (calculatorState.previousNumber && calculatorState.operation) {
+        const prev = parseFloat(calculatorState.previousNumber);
+        const result = performCalculation(
+          prev,
+          current,
+          calculatorState.operation
+        );
+        return operator === "="
+          ? {
+              currentNumber: result.toString(),
+              previousNumber: "",
+              operation: null,
+              isNewNumber: true,
+            }
+          : {
+              currentNumber: "",
+              previousNumber: result.toString(),
+              operation: operator,
+              isNewNumber: true,
+            };
+      } else if (operator === "=") {
+        return { ...calculatorState, isNewNumber: true };
+      } else {
+        return {
+          currentNumber: "",
+          previousNumber: current.toString(),
+          operation: operator,
+          isNewNumber: true,
+        };
+      }
+    });
   };
+
+  // 0 ~ 9 까지 클릭햇을 때 실행되는 함수
   const handleNum = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log(e.currentTarget.value);
     const value = e.currentTarget.value; // 문자열
