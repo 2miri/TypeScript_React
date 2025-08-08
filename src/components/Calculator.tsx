@@ -15,70 +15,67 @@ export default function Calculator() {
   const handleOperator = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
-    console.log(e.currentTarget.value);
     const operator = e.currentTarget.value;
-    setCalculatorState((calculatorState) => {
-      if (calculatorState.currentNumber === "" && operator)
-        return calculatorState;
+    if (calculatorState.currentNumber === "" && operator) return;
 
-      const current = parseFloat(calculatorState.currentNumber);
+    const current = parseFloat(calculatorState.currentNumber);
+    setCalculatorState((calculatorState) => {
       if (calculatorState.previousNumber && calculatorState.operation) {
         const prev = parseFloat(calculatorState.previousNumber);
         const result = performCalculation(
           prev,
           current,
           calculatorState.operation
-        );
+        ).toString();
+
         return operator === "="
           ? {
-              currentNumber: result.toString(),
               previousNumber: "",
+              currentNumber: result,
               operation: null,
               isNewNumber: true,
             }
           : {
+              previousNumber: result,
               currentNumber: "",
-              previousNumber: result.toString(),
               operation: operator,
               isNewNumber: true,
             };
-      } else if (operator === "=") {
-        return { ...calculatorState, isNewNumber: true };
-      } else {
-        return {
-          currentNumber: "",
-          previousNumber: current.toString(),
-          operation: operator,
-          isNewNumber: true,
-        };
       }
+
+      if (operator === "=") {
+        return { ...calculatorState, isNewNumber: true };
+      }
+
+      return {
+        previousNumber: calculatorState.currentNumber,
+        currentNumber: "",
+        operation: operator,
+        isNewNumber: true,
+      };
     });
   };
 
   // 0 ~ 9 까지 클릭햇을 때 실행되는 함수
   const handleNum = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    console.log(e.currentTarget.value);
-    const value = e.currentTarget.value; // 문자열
+    const current = e.currentTarget.value;
     setCalculatorState((calculatorState) => ({
       ...calculatorState,
       currentNumber: calculatorState.isNewNumber
-        ? value
-        : calculatorState.currentNumber + value,
+        ? current
+        : calculatorState.currentNumber + current,
       isNewNumber: false,
     }));
   };
 
   // . 클릭했을 때 실행되는 함수
   const handleDot = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    console.log(e.currentTarget.value);
-    setCalculatorState((calculatorState) => {
-      if (calculatorState.currentNumber.includes(".")) return calculatorState;
-      return {
-        ...calculatorState,
-        currentNumber: calculatorState.currentNumber + ".",
-        isNewNumber: false,
-      };
-    });
+    if (calculatorState.currentNumber.includes(".")) return;
+    setCalculatorState((calculatorState) => ({
+      ...calculatorState,
+      currentNumber: calculatorState.currentNumber + ".",
+      isNewNumber: false,
+    }));
   };
 
   const buttonConfigs: ButtonConfigs[] = [
