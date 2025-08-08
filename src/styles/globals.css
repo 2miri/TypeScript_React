@@ -11,3 +11,10 @@
 .button:hover {
   background-color: oklch(0.627 0.194 149.214);
 }
+
+.bg {
+  /* background-image: url("/images/cat.jpg"); */
+  background-image: url("../assets/images/cat.jpg");
+  width: 400px;
+  height: 400px;
+}
