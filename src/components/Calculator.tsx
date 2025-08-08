@@ -1,31 +1,6 @@
 import { useState } from "react";
 import CalculatorButton from "./CalculatorButton";
-
-const performCalculation = (
-  prev: number,
-  current: number,
-  operation: string
-) => {
-  switch (operation) {
-    case "+":
-      return prev + current;
-    case "-":
-      return prev - current;
-    case "*":
-      return prev * current;
-    case "/":
-      return prev / current;
-    default:
-      return current;
-  }
-};
-
-const initialData: CalculatorState = {
-  currentNumber: "0", // 현재 입력/표시되는 숫자
-  previousNumber: "", // 이전에 입력된 숫자
-  operation: null, // 현재 선택된 연산자 ("+", "-", "/", "*")
-  isNewNumber: true, // 새로운 숫자 입력 여부
-};
+import { initialData, performCalculation } from "../utils/calculatorUtils";
 
 export default function Calculator() {
   const [calculatorState, setCalculatorState] =
@@ -43,6 +18,9 @@ export default function Calculator() {
     console.log(e.currentTarget.value);
     const operator = e.currentTarget.value;
     setCalculatorState((calculatorState) => {
+      if (calculatorState.currentNumber === "" && operator)
+        return calculatorState;
+
       const current = parseFloat(calculatorState.currentNumber);
       if (calculatorState.previousNumber && calculatorState.operation) {
         const prev = parseFloat(calculatorState.previousNumber);
