@@ -15,7 +15,7 @@ export default function Calculator() {
   const handleDot = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log(e.currentTarget.value);
   };
-  const buttonConfigs = [
+  const buttonConfigs: ButtonConfigs[] = [
     { value: "C", className: "calc-clear", onClick: handleClear },
     { value: "/", className: "calc-operator", onClick: handleOperator },
     { value: "1", className: "calc-num", onClick: handleNum },
