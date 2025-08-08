@@ -1,9 +1,9 @@
-import Textarea from "./components/controlled/Textarea";
+import UserInfoForm from "./components/controlled/UserInfoForm";
 
 export default function App() {
   return (
     <>
-      <Textarea />
+      <UserInfoForm />
     </>
   );
 }
