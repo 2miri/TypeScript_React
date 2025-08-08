@@ -1,6 +1,13 @@
+import { useState } from "react";
 import CalculatorButton from "./CalculatorButton";
 
 export default function Calculator() {
+  const [calculatorState, setCalculatorState] = useState<CalculatorState>({
+    currentNumber: "0", // 현재 입력/표시되는 숫자
+    previousNumber: "", // 이전에 입력된 숫자
+    operation: null, // 현재 선택된 연산자 ("+", "-", "/", "*")
+    isNewNumber: true, // 새로운 숫자 입력 여부
+  });
   const handleClear = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log(e.currentTarget.value);
   };
@@ -11,6 +18,14 @@ export default function Calculator() {
   };
   const handleNum = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log(e.currentTarget.value);
+    const value = e.currentTarget.value; // 문자열
+    setCalculatorState((calculatorState) => ({
+      ...calculatorState,
+      currentNumber: calculatorState.isNewNumber
+        ? value
+        : calculatorState.currentNumber + value,
+      isNewNumber: false,
+    }));
   };
   const handleDot = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log(e.currentTarget.value);
@@ -43,7 +58,13 @@ export default function Calculator() {
             name="forms"
             className="grid grid-cols-[repeat(4, 65px)] auto-rows-[65px] gap-1"
           >
-            <input type="text" className="calc-input" name="output" readOnly />
+            <input
+              type="text"
+              className="calc-input"
+              name="output"
+              readOnly
+              value={calculatorState.currentNumber}
+            />
             {buttonConfigs.map((button) => (
               <CalculatorButton key={button.value} {...button} />
             ))}
