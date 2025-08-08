@@ -1,9 +1,9 @@
-import Checkbox from "./components/controlled/Checkbox";
+import Radio from "./components/controlled/Radio";
 
 export default function App() {
   return (
     <>
-      <Checkbox />
+      <Radio />
     </>
   );
 }
