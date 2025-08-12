@@ -1,21 +1,33 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 export default function Input() {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const pwRef = useRef<HTMLInputElement>(null);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(inputRef.current?.value);
-    console.log(pwRef.current?.value);
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const handleFormStateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState((formState) => ({
+      ...formState,
+      [e.target.name]: e.target.value,
+    }));
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" className="border" ref={inputRef} />
-        <input type="password" className="border" ref={pwRef} />
-        <button type="submit" className="border">
-          Submit
-        </button>
+      <form>
+        <h1>
+          Input: {formState.email} / {formState.password}
+        </h1>
+        <input
+          className="border"
+          name="email"
+          type="text"
+          value={formState.email}
+          onChange={handleFormStateChange}
+        />
+        <input
+          className="border"
+          type="password"
+          name="password"
+          value={formState.password}
+          onChange={handleFormStateChange}
+        />
       </form>
     </>
   );
