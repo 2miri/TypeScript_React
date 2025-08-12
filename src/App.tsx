@@ -1,10 +1,7 @@
-import Checkbox from "./components/Checkbox";
-
 export default function App() {
   return (
     <>
-      <Checkbox />
-      <Checkbox />
+      <h1>App Component</h1>
     </>
   );
 }
