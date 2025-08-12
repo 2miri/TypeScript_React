@@ -1,9 +1,9 @@
-import UserInfoForm from "./components/controlled/UserInfoForm";
+import Input from "./components/controlled/Input";
 
 export default function App() {
   return (
     <>
-      <UserInfoForm />
+      <Input />
     </>
   );
 }
