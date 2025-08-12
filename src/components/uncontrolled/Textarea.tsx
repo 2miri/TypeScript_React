@@ -1,8 +1,15 @@
+import React, { useRef } from "react";
+
 export default function Textarea() {
+  const descRef = useRef<HTMLTextAreaElement>(null);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(descRef.current?.value);
+  };
   return (
     <>
-      <form>
-        <textarea name="desc" className="border" />
+      <form onSubmit={handleSubmit}>
+        <textarea name="desc" className="border" ref={descRef} />
         <button type="submit">Submit</button>
       </form>
     </>
