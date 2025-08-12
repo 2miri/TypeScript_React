@@ -1,9 +1,10 @@
-import Login from "./components/Login";
+import Checkbox from "./components/Checkbox";
 
 export default function App() {
   return (
     <>
-      <Login />
+      <Checkbox />
+      <Checkbox />
     </>
   );
 }
