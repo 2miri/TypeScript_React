@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@utility font-inter {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
 @utility calc-btn {
   @apply border-2 border-[#333] cursor-pointer text-lg  hover:shadow-[1px_1px_2px_#333];
 }
@@ -21,5 +26,8 @@
   }
   .calc-result {
     @apply bg-[orange] col-span-2 calc-btn;
+  }
+  .input-field {
+    @apply font-inter w-full h-11 rounded-lg text-sm px-4 border border-[#4F4F4F]  placeholder:text-[#acacac];
   }
 }
