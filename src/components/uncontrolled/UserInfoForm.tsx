@@ -3,6 +3,7 @@ import { useRef } from "react";
 
 export default function UserInfoForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formRef.current) {
@@ -12,6 +13,12 @@ export default function UserInfoForm() {
       const gender = formData.get("gender");
       const skills = formData.getAll("skills");
       const bio = formData.get("bio");
+
+      if (name === "") {
+        alert("이름을 입력해주세요.");
+        nameRef.current?.focus();
+        return;
+      }
 
       console.log({ name, email, gender, skills, bio });
     }
@@ -29,6 +36,7 @@ export default function UserInfoForm() {
             type="text"
             id="name"
             name="name"
+            ref={nameRef}
           />
         </div>
 
