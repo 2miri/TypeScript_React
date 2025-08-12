@@ -1,18 +1,41 @@
-import type React from "react";
-import { useRef } from "react";
-import Input from "./components/Input";
+import { useState } from "react";
+import useInput from "./hooks/useInput";
 
 export default function App() {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { value: email, handleValueChange: handleEmailChange } = useInput("");
+  const { value: password, handleValueChange: handlePasswordChange } =
+    useInput("");
+  const { value: name, handleValueChange: handleNameChange } = useInput("");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    inputRef.current?.focus();
+    console.log({ email, password, name });
   };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Input ref={inputRef} />
-        {/* <input type="text" className="border" ref={inputRef} /> */}
+        <input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={handleEmailChange}
+          className="border"
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={handlePasswordChange}
+          className="border"
+        />
+        <input
+          type="text"
+          placeholder="name"
+          value={name}
+          onChange={handleNameChange}
+          className="border"
+        />
         <button type="submit" className="border">
           제출
         </button>
