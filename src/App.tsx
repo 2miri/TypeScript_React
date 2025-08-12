@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useInput from "./hooks/useInput";
 
 export default function App() {
@@ -20,25 +19,25 @@ export default function App() {
           placeholder="email"
           value={email}
           onChange={handleEmailChange}
-          className="border"
+          required
         />
         <input
           type="password"
           placeholder="password"
           value={password}
           onChange={handlePasswordChange}
-          className="border"
+          minLength={4}
+          maxLength={6}
+          required
         />
         <input
           type="text"
           placeholder="name"
           value={name}
           onChange={handleNameChange}
-          className="border"
+          required
         />
-        <button type="submit" className="border">
-          제출
-        </button>
+        <button type="submit">제출</button>
       </form>
     </>
   );
