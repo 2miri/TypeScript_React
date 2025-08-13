@@ -22,7 +22,7 @@ export default function Todo() {
         {/* 할 일 등록 */}
         <TodoEditor addTodo={addTodo} />
         {/* 할 일 목록 */}
-        <TodoList />
+        <TodoList todos={todos} />
       </div>
     </>
   );

@@ -22,6 +22,7 @@ export default function TodoEditor({
             type="text"
             className="todo__input"
             placeholder="Enter Todo List"
+            value={text}
             onChange={(e) => setText(e.target.value)}
           />
           <Button className="todo__button" type="submit">
