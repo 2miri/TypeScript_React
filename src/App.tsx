@@ -1,4 +1,4 @@
-import { lazy, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 // import ChildA from "./components/ChildA";
 // import ChildB from "./components/ChildB";
 const ChildA = lazy(() => import("./components/ChildA"));
@@ -12,8 +12,13 @@ export default function App() {
       <h1>App Component</h1>
       {isShow && (
         <>
-          <ChildA />
-          <ChildB />
+          <Suspense fallback={<h1>ChildA Loading..</h1>}>
+            <ChildA />
+            <ChildB />
+          </Suspense>
+          {/* <Suspense fallback={<h1>ChildB Loading..</h1>}>
+            <ChildB />
+          </Suspense> */}
         </>
       )}
     </>
