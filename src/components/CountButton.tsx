@@ -1,19 +1,17 @@
-import type { ActionDispatch } from "react";
-
 export default function CountButton({
-  countDispatch,
+  increment,
+  decrement,
+  reset,
 }: {
-  countDispatch: ActionDispatch<[action: { type: string }]>;
+  increment: () => void;
+  decrement: () => void;
+  reset: () => void;
 }) {
   return (
     <>
-      <button onClick={() => countDispatch({ type: "increment" })}>
-        Increment
-      </button>
-      <button onClick={() => countDispatch({ type: "decrement" })}>
-        Decrement
-      </button>
-      <button onClick={() => countDispatch({ type: "reset" })}>Reset</button>
+      <button onClick={decrement}>감소</button>
+      <button onClick={reset}>리셋</button>
+      <button onClick={increment}>증가</button>
     </>
   );
 }
