@@ -1,9 +1,15 @@
-import Todo from "./components/Todo";
+import { useState } from "react";
+import ChildA from "./components/ChildA";
 
 export default function App() {
+  console.log("app");
+  const [count, setCount] = useState(0);
+
   return (
     <>
-      <Todo />
+      <h1>count : {count}</h1>
+      <button onClick={() => setCount((count) => count + 1)}>증가</button>
+      <ChildA />
     </>
   );
 }
