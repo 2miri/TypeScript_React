@@ -15,6 +15,19 @@ export default function Todo() {
       },
     ]);
   };
+
+  const toggleTodo = (id: number) => {
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+  const deleteTodo = (id: number) => {
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+  };
+
   return (
     <>
       <div className="todo">
@@ -22,7 +35,11 @@ export default function Todo() {
         {/* 할 일 등록 */}
         <TodoEditor addTodo={addTodo} />
         {/* 할 일 목록 */}
-        <TodoList todos={todos} />
+        <TodoList
+          todos={todos}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+        />
       </div>
     </>
   );
