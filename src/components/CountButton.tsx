@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { CounterContext } from "../App";
+import useCounter from "../context/counter/useCounter";
 
 export default function CountButton() {
-  const { decrement, reset, increment } = useContext(CounterContext)!;
+  const { decrement, reset, increment } = useCounter();
   return (
     <>
       <button onClick={decrement}>감소</button>
