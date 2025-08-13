@@ -1,6 +1,11 @@
 import { Bell } from "lucide-react";
+import { useSetting, useSettingAction } from "../context/setting/useSetting";
+import { twMerge } from "tailwind-merge";
 
 export default function AlarmSetting() {
+  const { preferences } = useSetting();
+  const { updateNotifications } = useSettingAction();
+
   return (
     <>
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
@@ -11,42 +16,45 @@ export default function AlarmSetting() {
           </h2>
         </div>
         <div className="space-y-4">
-          <label className="flex items-center justify-between">
-            <span className="text-gray-700 dark:text-gray-300 capitalize">
-              이메일 알림
-            </span>
-            {/* On: bg-blue-500 */}
-            {/* Off: bg-gray-300 dark:bg-gray-600 */}
-            <button className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors bg-gray-300 dark:bg-gray-600">
-              {/* On: translate-x-6  */}
-              {/* Off: translate-x-1 */}
-              <span className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1" />
-            </button>
-          </label>
-          <label className="flex items-center justify-between">
-            <span className="text-gray-700 dark:text-gray-300 capitalize">
-              푸시 알림
-            </span>
-            {/* On: bg-blue-500 */}
-            {/* Off: bg-gray-300 dark:bg-gray-600 */}
-            <button className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors bg-gray-300 dark:bg-gray-600">
-              {/* On: translate-x-6  */}
-              {/* Off: translate-x-1 */}
-              <span className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1" />
-            </button>
-          </label>
-          <label className="flex items-center justify-between">
-            <span className="text-gray-700 dark:text-gray-300 capitalize">
-              데스크톱 알림
-            </span>
-            {/* On: bg-blue-500 */}
-            {/* Off: bg-gray-300 dark:bg-gray-600 */}
-            <button className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors bg-gray-300 dark:bg-gray-600">
-              {/* On: translate-x-6  */}
-              {/* Off: translate-x-1 */}
-              <span className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1" />
-            </button>
-          </label>
+          {(
+            Object.keys(
+              preferences.notifications
+            ) as (keyof UserPreferences["notifications"])[]
+          ).map((key) => (
+            <label key={key} className="flex items-center justify-between">
+              <span className="text-gray-700 dark:text-gray-300 capitalize">
+                {key === "email"
+                  ? "이메일 알림"
+                  : key === "push"
+                  ? "푸시 알림"
+                  : "데스크톱 알림"}
+              </span>
+              {/* On: bg-blue-500 */}
+              {/* Off: bg-gray-300 dark:bg-gray-600 */}
+              <button
+                className={twMerge(
+                  "relative inline-flex h-6 w-11 items-center rounded-full transition-colors",
+                  preferences.notifications[key]
+                    ? "bg-blue-500"
+                    : " bg-gray-300 dark:bg-gray-600"
+                )}
+                onClick={() =>
+                  updateNotifications(key, !preferences.notifications[key])
+                }
+              >
+                {/* On: translate-x-6  */}
+                {/* Off: translate-x-1 */}
+                <span
+                  className={twMerge(
+                    "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
+                    preferences.notifications[key]
+                      ? "translate-x-6"
+                      : "translate-x-1"
+                  )}
+                />
+              </button>
+            </label>
+          ))}
         </div>
       </div>
     </>
