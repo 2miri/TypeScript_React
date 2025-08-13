@@ -1,4 +1,5 @@
 import type React from "react";
+import { useId } from "react";
 
 type CheckboxProps = Omit<React.ComponentPropsWithoutRef<"input">, "type"> & {
   type?: "checkbox";
@@ -7,11 +8,12 @@ type CheckboxProps = Omit<React.ComponentPropsWithoutRef<"input">, "type"> & {
 
 export default function Checkbox(props: CheckboxProps) {
   const { parentClassName, children, ...rest } = props;
+  const uuid = useId();
   return (
     <>
       <div className={parentClassName}>
-        <input {...rest} />
-        <label>{children}</label>
+        <input id={uuid} {...rest} />
+        <label htmlFor={uuid}>{children}</label>
       </div>
     </>
   );
