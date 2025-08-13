@@ -1,6 +1,6 @@
 import type React from "react";
-import { CounterContext } from "./CounterContext";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { CounterContextAction, CounterContext } from "./CounterContextAction";
 
 export default function CounterProvider({
   children,
@@ -20,11 +20,14 @@ export default function CounterProvider({
   const reset = () => {
     setCount(0);
   };
+
+  const memoization = useMemo(() => ({ increment, decrement, reset }), []);
+
   return (
     <>
-      <CounterContext value={{ count, increment, decrement, reset }}>
-        {children}
-      </CounterContext>
+      <CounterContextAction value={memoization}>
+        <CounterContext value={{ count }}>{children}</CounterContext>
+      </CounterContextAction>
     </>
   );
 }
