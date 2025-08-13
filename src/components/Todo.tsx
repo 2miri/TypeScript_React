@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import TodoEditor from "./TodoEditor";
 import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 
 export default function Todo() {
+  const savedTodos = localStorage.getItem("todos");
   const [todos, setTodos] = useState<Todo[]>(
-    JSON.parse(localStorage.getItem("todos")?.toString()!) || []
+    savedTodos ? JSON.parse(savedTodos) : []
   );
   const addTodo = (text: string) => {
     setTodos((todos) => [
@@ -18,27 +19,36 @@ export default function Todo() {
     ]);
   };
 
-  const toggleTodo = (id: number) => {
+  const toggleTodo = useCallback((id: number) => {
     setTodos((todos) =>
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
-  };
+  }, []);
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = useCallback((id: number) => {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
-  };
+  }, []);
 
-  const modifyTodo = (id: number, text: string) => {
+  const modifyTodo = useCallback((id: number, text: string) => {
     setTodos((todos) =>
       todos.map((todo) => (todo.id === id ? { ...todo, text } : todo))
     );
-  };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+  useEffect(() => {
+    const randomText = Array.from(
+      { length: 10 },
+      (_, index) => `Todo Item #${index + 1}`
+    );
+
+    // randomText.forEach((text) => addTodo(text));
+  }, []);
 
   return (
     <>
