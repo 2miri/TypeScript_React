@@ -1,9 +1,9 @@
-import Stopwatch from "./components/StopWatch";
+import Todo from "./components/Todo";
 
 export default function App() {
   return (
     <>
-      <Stopwatch />
+      <Todo />
     </>
   );
 }
