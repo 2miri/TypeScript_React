@@ -3,12 +3,12 @@ import { useCounterAction } from "../context/counter/useCounter";
 export default function CountButton() {
   console.log("CountButton");
 
-  const { decrement, reset, increment } = useCounterAction();
+  const countDispatch = useCounterAction();
   return (
     <>
-      <button onClick={decrement}>감소</button>
-      <button onClick={reset}>리셋</button>
-      <button onClick={increment}>증가</button>
+      <button onClick={() => countDispatch({ type: "decrement" })}>감소</button>
+      <button onClick={() => countDispatch({ type: "reset" })}>리셋</button>
+      <button onClick={() => countDispatch({ type: "increment" })}>증가</button>
     </>
   );
 }

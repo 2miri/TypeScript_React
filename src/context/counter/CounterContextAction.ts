@@ -4,11 +4,10 @@ type CounterContextType = {
   count: number;
 };
 
-type CounterContextActionType = {
-  increment: () => void;
-  decrement: () => void;
-  reset: () => void;
-};
+type CounterContextActionType = React.ActionDispatch<
+  [action: { type: string }]
+>;
+
 export const CounterContext = createContext<CounterContextType | null>(null);
 export const CounterContextAction =
   createContext<CounterContextActionType | null>(null);

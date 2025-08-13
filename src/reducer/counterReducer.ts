@@ -1,4 +1,7 @@
-export default function reducer(count: number, action: { type: string }) {
+export default function counterReducer(
+  count: number,
+  action: { type: string }
+) {
   switch (action.type) {
     case "increment":
       return count + 1;
