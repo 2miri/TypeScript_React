@@ -1,6 +1,7 @@
+import React from "react";
 import ChildC from "./ChildC";
 
-export default function ChildB() {
+export default React.memo(function ChildB() {
   console.log("childB");
 
   return (
@@ -9,4 +10,4 @@ export default function ChildB() {
       <ChildC />
     </>
   );
-}
+});
