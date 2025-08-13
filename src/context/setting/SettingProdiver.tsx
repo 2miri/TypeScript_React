@@ -1,6 +1,6 @@
 import type React from "react";
 import { SettingContext, SettingContextAction } from "./SettingContext";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const defaultValue: UserPreferences = {
   language: "ko",
@@ -53,6 +53,14 @@ export default function SettingProdiver({
     }),
     []
   );
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = {
+      small: "14px",
+      medium: "16px",
+      large: "18px",
+    }[preferences.fontSize];
+  }, [preferences]);
 
   return (
     <>
