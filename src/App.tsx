@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import Count from "./components/Count";
 import CountOutside from "./components/CountOutside";
+
+type CounterContextType = {
+  count: number;
+  increment: () => void;
+  decrement: () => void;
+  reset: () => void;
+};
+export const CounterContext = createContext<CounterContextType | null>(null);
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -19,13 +27,10 @@ export default function App() {
 
   return (
     <>
-      <Count
-        count={count}
-        increment={increment}
-        decrement={decrement}
-        reset={reset}
-      />
-      <CountOutside count={count} />
+      <CounterContext value={{ count, increment, decrement, reset }}>
+        <Count />
+        <CountOutside />
+      </CounterContext>
     </>
   );
 }

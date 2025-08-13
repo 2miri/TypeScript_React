@@ -1,12 +1,8 @@
-export default function CountButton({
-  increment,
-  decrement,
-  reset,
-}: {
-  increment: () => void;
-  decrement: () => void;
-  reset: () => void;
-}) {
+import { useContext } from "react";
+import { CounterContext } from "../App";
+
+export default function CountButton() {
+  const { decrement, reset, increment } = useContext(CounterContext)!;
   return (
     <>
       <button onClick={decrement}>감소</button>
