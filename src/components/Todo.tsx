@@ -28,6 +28,12 @@ export default function Todo() {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
   };
 
+  const modifyTodo = (id: number, text: string) => {
+    setTodos((todos) =>
+      todos.map((todo) => (todo.id === id ? { ...todo, text } : todo))
+    );
+  };
+
   return (
     <>
       <div className="todo">
@@ -39,6 +45,7 @@ export default function Todo() {
           todos={todos}
           toggleTodo={toggleTodo}
           deleteTodo={deleteTodo}
+          modifyTodo={modifyTodo}
         />
       </div>
     </>
