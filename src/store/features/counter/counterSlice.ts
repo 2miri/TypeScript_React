@@ -44,7 +44,7 @@ export const incrementAsync = createAsyncThunk(
   "counterSlice/incrementAsync",
   async (amount: number) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    throw new Error("error");
+    // throw new Error("error");
     return amount;
   }
 );

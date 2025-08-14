@@ -1,10 +1,11 @@
-import { useTheme } from "../context/theme/useTheme";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 export default function Theme() {
-  const { theme } = useTheme();
+  const theme = useSelector((state: RootState) => state.theme.theme);
   return (
     <>
-      <h1>Theme : {theme} </h1>
+      <h1>Theme : {theme}</h1>
     </>
   );
 }

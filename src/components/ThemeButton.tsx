@@ -1,12 +1,12 @@
-import { useThemeAction } from "../context/theme/useTheme";
+import { useDispatch } from "react-redux";
 
 export default function ThemeButton() {
-  console.log("ThemeButton");
-
-  const { changeTheme } = useThemeAction();
+  const disPath = useDispatch();
   return (
     <>
-      <button onClick={changeTheme}>테마 변경</button>
+      <button onClick={() => disPath({ type: "themeSlice/changeTheme" })}>
+        테마변경
+      </button>
     </>
   );
 }
