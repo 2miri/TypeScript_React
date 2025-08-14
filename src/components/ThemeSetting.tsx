@@ -4,6 +4,7 @@ import useTranslation from "../libs/useTranslation";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import { updateColorScheme } from "../store/features/setting/settingSlice";
+import { useLayoutEffect } from "react";
 
 export default function ThemeSetting() {
   const colorScheme = useSelector(
@@ -11,6 +12,19 @@ export default function ThemeSetting() {
   );
   const disPatch = useDispatch();
   const { t } = useTranslation();
+
+  useLayoutEffect(() => {
+    document.documentElement.classList.remove("light", "dark");
+    if (colorScheme === "system") {
+      if (window.matchMedia("(prefers-color-scheme: dark").matches) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.add("light");
+      }
+    } else {
+      document.documentElement.classList.add(colorScheme);
+    }
+  }, [colorScheme]);
   return (
     <>
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">

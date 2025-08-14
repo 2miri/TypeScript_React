@@ -1,17 +1,26 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
+const getInitialState = () => {
+  const saved = localStorage.getItem("preferences");
+  return (
+    saved
+      ? JSON.parse(saved)
+      : {
+          language: "ko",
+          fontSize: "medium",
+          notifications: {
+            email: false,
+            push: false,
+            desktop: false,
+          },
+          colorScheme: "system",
+        }
+  ) as UserPreferences;
+};
+
 const settingSlice = createSlice({
   name: "settingSlice",
-  initialState: {
-    language: "ko",
-    fontSize: "medium",
-    notifications: {
-      email: false,
-      push: false,
-      desktop: false,
-    },
-    colorScheme: "system",
-  },
+  initialState: getInitialState(),
   reducers: {
     updateLanguage: (
       state,

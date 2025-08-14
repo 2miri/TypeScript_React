@@ -4,11 +4,20 @@ import useTranslation from "../libs/useTranslation";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import { updateFontSize } from "../store/features/setting/settingSlice";
+import { useLayoutEffect } from "react";
 
 export default function FontSizeSetting() {
   const fontSize = useSelector((state: RootState) => state.setting.fontSize);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  useLayoutEffect(() => {
+    document.documentElement.style.fontSize = {
+      small: "14px",
+      medium: "16px",
+      large: "18px",
+    }[fontSize];
+  }, [fontSize]);
   return (
     <>
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
