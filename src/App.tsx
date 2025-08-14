@@ -1,12 +1,9 @@
-import UserSettings from "./components/UserSettings";
-import SettingProdiver from "./context/setting/SettingProdiver";
+import ScrollComparison from "./components/ScrollComparison";
 
 export default function App() {
   return (
     <>
-      <SettingProdiver>
-        <UserSettings />
-      </SettingProdiver>
+      <ScrollComparison />
     </>
   );
 }
