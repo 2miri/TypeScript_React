@@ -1,6 +1,6 @@
 import type React from "react";
 import { SettingContext, SettingContextAction } from "./SettingContext";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 
 const defaultValue: UserPreferences = {
   language: "ko",
@@ -57,7 +57,7 @@ export default function SettingProdiver({
     []
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     localStorage.setItem("preferences", JSON.stringify(preferences));
 
     // 글자크기 변경
