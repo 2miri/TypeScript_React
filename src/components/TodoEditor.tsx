@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Button from "./html/Button";
 import Input from "./html/Input";
+import { useTodoAction } from "../context/todo/useTodo";
 
-export default function TodoEditor({
-  addTodo,
-}: {
-  addTodo: (text: string) => void;
-}) {
+export default function TodoEditor() {
+  const { addTodo } = useTodoAction();
   const [text, setText] = useState("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
