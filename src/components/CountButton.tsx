@@ -6,6 +6,8 @@ import {
 } from "../store/features/counter/counterSlice";
 
 export default function CountButton() {
+  console.log("CountButton");
+
   const dispatch = useDispatch();
   return (
     <>
