@@ -1,12 +1,14 @@
 import { Languages } from "lucide-react";
-import { useSetting, useSettingAction } from "../context/setting/useSetting";
 import { twMerge } from "tailwind-merge";
 import useTranslation from "../libs/useTranslation";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../store/store";
+import { updateLanguage } from "../store/features/setting/settingSlice";
 
 export default function LanguageSetting() {
-  const { preferences } = useSetting();
-  const { updateLanguage } = useSettingAction();
   const { t } = useTranslation();
+  const language = useSelector((state: RootState) => state.setting.language);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -23,11 +25,11 @@ export default function LanguageSetting() {
               key={lang}
               className={twMerge(
                 "px-4 py-2 rounded-lg text-sm font-medium transition-color",
-                preferences.language === lang
+                language === lang
                   ? "bg-blue-500 text-white"
                   : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               )}
-              onClick={() => updateLanguage(lang)}
+              onClick={() => dispatch(updateLanguage(lang))}
             >
               {lang === "ko" ? "한국어" : lang === "en" ? "English" : "日本語"}
             </button>

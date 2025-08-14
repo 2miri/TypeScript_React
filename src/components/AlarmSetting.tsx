@@ -1,11 +1,15 @@
 import { Bell } from "lucide-react";
-import { useSetting, useSettingAction } from "../context/setting/useSetting";
 import { twMerge } from "tailwind-merge";
 import useTranslation from "../libs/useTranslation";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../store/store";
+import { updateNotifications } from "../store/features/setting/settingSlice";
 
 export default function AlarmSetting() {
-  const { preferences } = useSetting();
-  const { updateNotifications } = useSettingAction();
+  const notifications = useSelector(
+    (state: RootState) => state.setting.notifications
+  );
+  const disPath = useDispatch();
   const { t } = useTranslation();
 
   return (
@@ -20,7 +24,7 @@ export default function AlarmSetting() {
         <div className="space-y-4">
           {(
             Object.keys(
-              preferences.notifications
+              notifications
             ) as (keyof UserPreferences["notifications"])[]
           ).map((key) => (
             <label key={key} className="flex items-center justify-between">
@@ -36,12 +40,14 @@ export default function AlarmSetting() {
               <button
                 className={twMerge(
                   "relative inline-flex h-6 w-11 items-center rounded-full transition-colors",
-                  preferences.notifications[key]
+                  notifications[key]
                     ? "bg-blue-500"
                     : " bg-gray-300 dark:bg-gray-600"
                 )}
                 onClick={() =>
-                  updateNotifications(key, !preferences.notifications[key])
+                  disPath(
+                    updateNotifications({ key, value: !notifications[key] })
+                  )
                 }
               >
                 {/* On: translate-x-6  */}
@@ -49,9 +55,7 @@ export default function AlarmSetting() {
                 <span
                   className={twMerge(
                     "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
-                    preferences.notifications[key]
-                      ? "translate-x-6"
-                      : "translate-x-1"
+                    notifications[key] ? "translate-x-6" : "translate-x-1"
                   )}
                 />
               </button>
