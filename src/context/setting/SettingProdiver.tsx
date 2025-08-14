@@ -17,7 +17,10 @@ export default function SettingProdiver({
 }: {
   children: React.ReactNode;
 }) {
-  const [preferences, setPreferences] = useState<UserPreferences>(defaultValue);
+  const [preferences, setPreferences] = useState<UserPreferences>(() => {
+    const save = localStorage.getItem("preferences");
+    return save ? JSON.parse(save) : defaultValue;
+  });
 
   const updateLanguage = (language: UserPreferences["language"]) => {
     setPreferences((preferences) => ({ ...preferences, language }));
@@ -55,6 +58,8 @@ export default function SettingProdiver({
   );
 
   useEffect(() => {
+    localStorage.setItem("preferences", JSON.stringify(preferences));
+
     // 글자크기 변경
     document.documentElement.style.fontSize = {
       small: "14px",
