@@ -55,11 +55,24 @@ export default function SettingProdiver({
   );
 
   useEffect(() => {
+    // 글자크기 변경
     document.documentElement.style.fontSize = {
       small: "14px",
       medium: "16px",
       large: "18px",
     }[preferences.fontSize];
+
+    // 테마 변경
+    document.documentElement.classList.remove("light", "dark");
+    if (preferences.colorScheme === "system") {
+      if (window.matchMedia("(prefers-color-scheme: dark").matches) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.add("light");
+      }
+    } else {
+      document.documentElement.classList.add(preferences.colorScheme);
+    }
   }, [preferences]);
 
   return (
