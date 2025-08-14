@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Button from "./html/Button";
 import Input from "./html/Input";
-import { useTodoAction } from "../context/todo/useTodo";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../store/features/todo/todoSlice";
 
 export default function TodoEditor() {
-  const { addTodo } = useTodoAction();
+  const dispatch = useDispatch();
   const [text, setText] = useState("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (text.trim() === "") return;
-    addTodo(text);
+    dispatch(addTodo(text));
     setText("");
   };
   return (
