@@ -1,14 +1,17 @@
-import { useCounterAction } from "../context/counter/useCounter";
+import { useDispatch } from "react-redux";
+import {
+  decrement,
+  increment,
+  reset,
+} from "../store/features/counter/counterSlice";
 
 export default function CountButton() {
-  console.log("CountButton");
-
-  const countDispatch = useCounterAction();
+  const dispatch = useDispatch();
   return (
     <>
-      <button onClick={() => countDispatch({ type: "decrement" })}>감소</button>
-      <button onClick={() => countDispatch({ type: "reset" })}>리셋</button>
-      <button onClick={() => countDispatch({ type: "increment" })}>증가</button>
+      <button onClick={() => dispatch(decrement())}>감소</button>
+      <button onClick={() => dispatch(reset())}>리셋</button>
+      <button onClick={() => dispatch(increment())}>증가</button>
     </>
   );
 }

@@ -1,12 +1,15 @@
-import Todo from "./components/Todo";
-import TodoProvider from "./context/todo/TodoProvider";
+import { Provider } from "react-redux";
+import Count from "./components/Count";
+import CountOutside from "./components/CountOutside";
+import { store } from "./store/store";
 
 export default function App() {
   return (
     <>
-      <TodoProvider>
-        <Todo />
-      </TodoProvider>
+      <Provider store={store}>
+        <Count />
+        <CountOutside />
+      </Provider>
     </>
   );
 }
