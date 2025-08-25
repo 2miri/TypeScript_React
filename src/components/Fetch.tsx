@@ -7,20 +7,26 @@ interface Posts {
 }
 export default function Fetch() {
   const [posts, setPosts] = useState<Posts[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     fetch("http://localhost:3000/posts")
       .then((response) => {
         return response.json();
       })
-      .then((data) => setPosts(data));
+      .then((data) => setPosts(data))
+      .finally(() => setIsLoading(false));
   }, []);
+
   return (
     <>
       <h3>Fetch</h3>
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
+        {isLoading ? (
+          <p>Loading..</p>
+        ) : (
+          posts.map((post) => <li key={post.id}>{post.title}</li>)
+        )}
       </ul>
     </>
   );
