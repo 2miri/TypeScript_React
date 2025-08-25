@@ -10,19 +10,27 @@ export default function Fetch() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
+    const controller = new AbortController();
     setIsLoading(true);
     setError("");
-    fetch("http://localhost:3000/posts2")
+    fetch("http://localhost:3000/posts", {
+      signal: controller.signal,
+    })
       .then((response) => {
         if (!response.ok) throw new Error("네트워크 통신 오류");
         return response.json();
       })
       .then((data) => setPosts(data))
       .catch((e) => {
-        console.log(e);
-        setError(e instanceof Error ? e.message : "unknown Error");
+        console.log(e.name);
+        if (e instanceof Error && e.name !== "AbortError")
+          setError(e instanceof Error ? e.message : "unknown Error");
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        if (!controller.signal.aborted) setIsLoading(false);
+      });
+
+    return () => controller.abort();
   }, []);
 
   if (error) return <p>Error : {error}</p>;
