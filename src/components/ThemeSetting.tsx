@@ -1,16 +1,12 @@
 import { Monitor, Moon, Sun } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import useTranslation from "../libs/useTranslation";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import { updateColorScheme } from "../store/features/setting/settingSlice";
 import { useLayoutEffect } from "react";
+import { useSettingStore } from "../store/settingStore";
 
 export default function ThemeSetting() {
-  const colorScheme = useSelector(
-    (state: RootState) => state.setting.colorScheme
-  );
-  const disPatch = useDispatch();
+  const colorScheme = useSettingStore((state) => state.colorScheme);
+  const updateColorScheme = useSettingStore((state) => state.updateColorScheme);
   const { t } = useTranslation();
 
   useLayoutEffect(() => {
@@ -46,7 +42,7 @@ export default function ThemeSetting() {
                   ? "bg-blue-500 text-white"
                   : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               )}
-              onClick={() => disPatch(updateColorScheme(theme))}
+              onClick={() => updateColorScheme(theme)}
             >
               {theme === "system" ? (
                 <>

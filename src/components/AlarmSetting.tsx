@@ -1,15 +1,13 @@
 import { Bell } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import useTranslation from "../libs/useTranslation";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import { updateNotifications } from "../store/features/setting/settingSlice";
+import { useSettingStore } from "../store/settingStore";
 
 export default function AlarmSetting() {
-  const notifications = useSelector(
-    (state: RootState) => state.setting.notifications
+  const notifications = useSettingStore((state) => state.notifications);
+  const updateNotifications = useSettingStore(
+    (state) => state.updateNotifications
   );
-  const disPath = useDispatch();
   const { t } = useTranslation();
 
   return (
@@ -44,11 +42,7 @@ export default function AlarmSetting() {
                     ? "bg-blue-500"
                     : " bg-gray-300 dark:bg-gray-600"
                 )}
-                onClick={() =>
-                  disPath(
-                    updateNotifications({ key, value: !notifications[key] })
-                  )
-                }
+                onClick={() => updateNotifications(key, !notifications[key])}
               >
                 {/* On: translate-x-6  */}
                 {/* Off: translate-x-1 */}

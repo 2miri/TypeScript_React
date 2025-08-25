@@ -1,11 +1,9 @@
-import Count from "./components/Count";
-import CountOutside from "./components/CountOutside";
+import UserSettings from "./components/UserSettings";
 
 export default function App() {
   return (
     <>
-      <Count />
-      <CountOutside />
+      <UserSettings />
     </>
   );
 }

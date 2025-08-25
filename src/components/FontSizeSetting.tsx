@@ -1,14 +1,12 @@
 import { Type } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import useTranslation from "../libs/useTranslation";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import { updateFontSize } from "../store/features/setting/settingSlice";
 import { useLayoutEffect } from "react";
+import { useSettingStore } from "../store/settingStore";
 
 export default function FontSizeSetting() {
-  const fontSize = useSelector((state: RootState) => state.setting.fontSize);
-  const dispatch = useDispatch();
+  const fontSize = useSettingStore((state) => state.fontSize);
+  const updateFontSize = useSettingStore((state) => state.updateFontSize);
   const { t } = useTranslation();
 
   useLayoutEffect(() => {
@@ -37,7 +35,7 @@ export default function FontSizeSetting() {
                   ? "bg-blue-500 text-white"
                   : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               )}
-              onClick={() => dispatch(updateFontSize(size))}
+              onClick={() => updateFontSize(size)}
             >
               {size === "small"
                 ? t.fontSize.small
