@@ -1,8 +1,8 @@
 {
   "posts": [
     {
-      "title": "a patch title",
-      "views": 155,
+      "title": "a axios modify data 2",
+      "view": 40,
       "id": 1
     },
     {
@@ -503,17 +503,17 @@
     {
       "title": "a new title",
       "views": 155,
-      "id": 102
-    },
-    {
-      "title": "a new title",
-      "views": 155,
       "id": 103
     },
     {
       "title": "a new title",
       "views": 155,
       "id": 104
+    },
+    {
+      "title": "a axios data",
+      "views": 50,
+      "id": 105
     }
   ]
 }

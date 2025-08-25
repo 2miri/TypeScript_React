@@ -1,9 +1,9 @@
-import FetchCrud from "./components/FetchCrud";
+import AxiosCrud from "./components/AxiosCrud";
 
 export default function App() {
   return (
     <>
-      <FetchCrud />
+      <AxiosCrud />
     </>
   );
 }
