@@ -1,9 +1,9 @@
-import Axios from "./components/Axios";
+import PostPage from "./components/PostPage";
 
 export default function App() {
   return (
     <>
-      <Axios />
+      <PostPage />
     </>
   );
 }
