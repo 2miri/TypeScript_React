@@ -1,9 +1,15 @@
+import { useCountStore } from "../store/countStore";
+
 export default function CountButton() {
+  console.log("CountButton");
+  const increment = useCountStore((state) => state.increment);
+  const decrement = useCountStore((state) => state.decrement);
+  const reset = useCountStore((state) => state.reset);
   return (
     <>
-      <button>감소</button>
-      <button>리셋</button>
-      <button>증가</button>
+      <button onClick={decrement}>감소</button>
+      <button onClick={reset}>리셋</button>
+      <button onClick={increment}>증가</button>
     </>
   );
 }
