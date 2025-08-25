@@ -4,25 +4,23 @@ import Checkbox from "./html/Checkbox";
 import Input from "./html/Input";
 import SvgClose from "./svg/SvgClose";
 import SvgPancil from "./svg/SvgPancil";
-import { useDispatch } from "react-redux";
-import {
-  deleteTodo,
-  modifyTodo,
-  toggleTodo,
-} from "../store/features/todo/todoSlice";
+import { useTodoStore } from "../store/todoStore";
 
 export default React.memo(function TodoListItem({ todo }: { todo: Todo }) {
   console.log("TodoListItem");
-  const dispatch = useDispatch();
+  const modifyTodo = useTodoStore((state) => state.modifyTodo);
+  const toggleTodo = useTodoStore((state) => state.toggleTodo);
+  const deleteTodo = useTodoStore((state) => state.deleteTodo);
 
   const [isModify, setIsModify] = useState(false);
   const [modifyText, setModifyText] = useState("");
+
   const modifyHandler = () => {
     setIsModify((isModify) => !isModify);
     if (modifyText.trim() === "") {
       setModifyText(todo.text);
     } else if (todo.text !== modifyText) {
-      dispatch(modifyTodo({ id: todo.id, text: modifyText }));
+      modifyTodo(todo.id, modifyText);
     }
   };
   return (
@@ -35,7 +33,7 @@ export default React.memo(function TodoListItem({ todo }: { todo: Todo }) {
             type="checkbox"
             className="todo__checkbox"
             checked={todo.completed}
-            onChange={() => dispatch(toggleTodo(todo.id))}
+            onChange={() => toggleTodo(todo.id)}
           >
             {todo.text}
           </Checkbox>
@@ -56,7 +54,7 @@ export default React.memo(function TodoListItem({ todo }: { todo: Todo }) {
           </Button>
           <Button
             className="todo__action-button"
-            onClick={() => dispatch(deleteTodo(todo.id))}
+            onClick={() => deleteTodo(todo.id)}
           >
             <SvgClose />
           </Button>

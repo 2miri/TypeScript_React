@@ -1,10 +1,9 @@
-import { useSelector } from "react-redux";
 import TodoListEmpty from "./TodoListEmpty";
 import TodoListItem from "./TodoListItem";
-import type { RootState } from "../store/store";
+import { useTodoStore } from "../store/todoStore";
 
 export default function TodoList() {
-  const todos = useSelector((state: RootState) => state.todo);
+  const todos = useTodoStore((state) => state.todos);
   return (
     <>
       <ul className="todo__list">

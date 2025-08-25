@@ -1,9 +1,9 @@
-import UserSettings from "./components/UserSettings";
+import Todo from "./components/Todo";
 
 export default function App() {
   return (
     <>
-      <UserSettings />
+      <Todo />
     </>
   );
 }
