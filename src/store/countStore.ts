@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type CountStore = {
   count: number;
-  increment: () => void;
+  increment: (amount: number, amount2: number) => void;
   decrement: () => void;
   reset: () => void;
 };
@@ -11,6 +11,9 @@ type CountStore = {
 export const useCountStore = create<CountStore>((set) => ({
   count: 0,
   decrement: () => set((state) => ({ count: state.count - 1 })),
-  increment: () => set((state) => ({ count: state.count + 1 })),
+  increment: async (amount: number, amount2: number) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    set((state) => ({ count: state.count + amount + amount2 }));
+  },
   reset: () => set({ count: 0 }),
 }));
