@@ -11,24 +11,25 @@ export default function Fetch() {
   const [error, setError] = useState("");
   useEffect(() => {
     const controller = new AbortController();
-    setIsLoading(true);
-    setError("");
-    fetch("http://localhost:3000/posts", {
-      signal: controller.signal,
-    })
-      .then((response) => {
+    const fetchPosts = async () => {
+      setIsLoading(true);
+      setError("");
+      try {
+        const response = await fetch("http://localhost:3000/posts", {
+          signal: controller.signal,
+        });
         if (!response.ok) throw new Error("네트워크 통신 오류");
-        return response.json();
-      })
-      .then((data) => setPosts(data))
-      .catch((e) => {
-        console.log(e.name);
+        const data = await response.json();
+        setPosts(data);
+      } catch (e) {
         if (e instanceof Error && e.name !== "AbortError")
           setError(e instanceof Error ? e.message : "unknown Error");
-      })
-      .finally(() => {
+      } finally {
         if (!controller.signal.aborted) setIsLoading(false);
-      });
+      }
+    };
+
+    fetchPosts();
 
     return () => controller.abort();
   }, []);
