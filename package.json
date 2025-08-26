@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "npx json-server server/db.json",
-    "delay": "npx json-server server/db.json --delay 2000"
+    "delay": "npx json-server server/db.json --delay 1000"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",

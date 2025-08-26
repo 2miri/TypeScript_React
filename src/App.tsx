@@ -1,19 +1,54 @@
-import Button from "./components/html/Button";
-import Input from "./components/html/Input";
+import axios from "axios";
+import { Heart } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface Posts {
+  id: number;
+  isLike: boolean;
+}
 
 export default function App() {
-  const formAction = async (formData: FormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(formData.get("email"));
-    console.log(formData.get("pw"));
+  const [posts, setPosts] = useState<Posts[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const updateLike = async (id: number, isLike: boolean) => {
+    const { data } = await axios.patch(`http://localhost:3000/posts/${id}`, {
+      isLike: !isLike,
+    });
+    setPosts((posts) =>
+      posts.map((post) => (post.id === data.id ? data : post))
+    );
   };
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setIsLoading(true);
+        const { data } = await axios.get("http://localhost:3000/posts");
+        setPosts(data);
+        setIsLoading(false);
+      } catch (e) {
+        console.error("에러 발생 : ", e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  if (isLoading) return <p>Loading...</p>;
   return (
     <>
-      <form action={formAction}>
-        <Input type="text" name="email" autoComplete="off" />
-        <Input type="password" name="pw" />
-        <Button type="submit">로그인</Button>
-      </form>
+      {/* fill: 'none', stroke: 'currentColor' */}
+      {/* fill: 'rgb(255,0,0)', stroke: 'rgb(255,0,0)' */}
+      {posts.map((post) => (
+        <Heart
+          key={post.id}
+          fill={post.isLike ? "rgb(255, 0, 0)" : "none"}
+          stroke={post.isLike ? "rgb(255, 0, 0)" : "currentColor"}
+          onClick={() => updateLike(post.id, post.isLike)}
+        />
+      ))}
     </>
   );
 }
