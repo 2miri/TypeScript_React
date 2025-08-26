@@ -1,9 +1,20 @@
 import { LayoutGrid, Search } from "lucide-react";
 import { usePostStore } from "../store/postStore";
+import { useEffect, useState } from "react";
 
 export default function PostHeader() {
   const setLimit = usePostStore((state) => state.setLimit);
   const setCurrentPages = usePostStore((state) => state.setCurrentPages);
+  const setTerm = usePostStore((state) => state.setTerm);
+
+  const [input, setInput] = useState("");
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentPages(1);
+      setTerm(input);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [input, setTerm]);
   return (
     <div className="mb-8 space-y-4">
       <div className="flex items-center justify-between">
@@ -46,6 +57,7 @@ export default function PostHeader() {
           type="text"
           placeholder="Search posts by title..."
           className="block w-full rounded-md border-0 py-3 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm"
+          onChange={(e) => setInput(e.target.value)}
         />
       </div>
     </div>
