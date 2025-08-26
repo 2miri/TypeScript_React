@@ -1,6 +1,9 @@
 import { LayoutGrid, Search } from "lucide-react";
+import { usePostStore } from "../store/postStore";
 
 export default function PostHeader() {
+  const setLimit = usePostStore((state) => state.setLimit);
+  const setCurrentPages = usePostStore((state) => state.setCurrentPages);
   return (
     <div className="mb-8 space-y-4">
       <div className="flex items-center justify-between">
@@ -21,6 +24,11 @@ export default function PostHeader() {
           <select
             id="pageSize"
             className="block w-20 rounded-md border-gray-300 py-1.5 px-3 bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+            onChange={(e) => {
+              setLimit(Number(e.target.value));
+              setCurrentPages(1);
+            }}
+            defaultValue={10}
           >
             <option value={5}>5</option>
             <option value={10}>10</option>

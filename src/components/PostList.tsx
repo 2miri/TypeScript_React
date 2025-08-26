@@ -3,17 +3,23 @@ import PostCard from "./PostCard";
 import { axiosInstance } from "../api/axios";
 import LoadingState from "./LoadingState";
 import ErrorState from "./ErrorState";
+import { usePostStore } from "../store/postStore";
 
 export default function PostList() {
   const [posts, setPost] = useState<Posts[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const currentPage = usePostStore((state) => state.currentPage);
+  const limit = usePostStore((state) => state.limit);
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
       setError("");
       try {
-        const { data } = await axiosInstance.get("/posts");
+        const { data } = await axiosInstance.get(
+          `/posts?_page=${currentPage}&_limit=${limit}`
+        );
         setPost(data);
       } catch (e) {
         setError(e instanceof Error ? e.message : "unknown error");
@@ -22,7 +28,7 @@ export default function PostList() {
       }
     };
     fetchPosts();
-  }, []);
+  }, [currentPage, limit]);
   return (
     <div className="mb-8">
       {/* 데이터가 없을 때 */}
