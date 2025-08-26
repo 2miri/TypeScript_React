@@ -1,33 +1,17 @@
-import axios from "axios";
-import { useEffect, useState, useTransition } from "react";
-
-interface Post {
-  id: number;
-  title: string;
-  views: number;
-}
+import { useActionState } from "react";
 
 export default function App() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    startTransition(async () => {
-      const { data } = await axios.get("http://localhost:3000/posts");
-      setPosts(data);
-    });
-  }, []);
-
-  if (isPending) return <h3>loading...</h3>;
-
+  const [count, formAction, isPending] = useActionState(async (count) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return count + 1;
+  }, 0);
   return (
     <>
-      <h3>useTransition</h3>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
+      <form action={formAction}>
+        <h1>Count : {count}</h1>
+        <button type="submit">증가</button>
+        {isPending && <p>제출중...</p>}
+      </form>
     </>
   );
 }
