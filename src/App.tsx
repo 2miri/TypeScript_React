@@ -1,27 +1,18 @@
-import type React from "react";
-import { useState } from "react";
+import Button from "./components/html/Button";
+import Input from "./components/html/Input";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
-
-  async function handleSubmit(formData: FormData) {
-    const email = formData.get("email");
-    const pw = formData.get("pw");
-
-    // api
-    setIsLoading(true);
+  const formAction = async (formData: FormData) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsLoading(false);
-    console.log(`login success : ${email}/${pw}`);
-  }
+    console.log(formData.get("email"));
+    console.log(formData.get("pw"));
+  };
   return (
     <>
-      <form action={handleSubmit}>
-        <input type="email" name="email" autoComplete="off" />
-        <input type="password" name="pw" />
-        <button type="submit" disabled={isLoading}>
-          로그인
-        </button>
+      <form action={formAction}>
+        <Input type="text" name="email" autoComplete="off" />
+        <Input type="password" name="pw" />
+        <Button type="submit">로그인</Button>
       </form>
     </>
   );
