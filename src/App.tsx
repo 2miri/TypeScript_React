@@ -1,23 +1,27 @@
-import { useActionState } from "react";
+import type React from "react";
+import { useState } from "react";
 
 export default function App() {
-  const [count, formAction, isPending] = useActionState(
-    async (count: number, formData: FormData) => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      const amount = Number(formData.get("amount"));
-      return count + amount;
-    },
-    0
-  );
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleSubmit(formData: FormData) {
+    const email = formData.get("email");
+    const pw = formData.get("pw");
+
+    // api
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setIsLoading(false);
+    console.log(`login success : ${email}/${pw}`);
+  }
   return (
     <>
-      <form>
-        <h1>Count : {count}</h1>
-        <input type="number" name="amount"></input>
-        <button type="submit" disabled={isPending} formAction={formAction}>
-          증가
+      <form action={handleSubmit}>
+        <input type="email" name="email" autoComplete="off" />
+        <input type="password" name="pw" />
+        <button type="submit" disabled={isLoading}>
+          로그인
         </button>
-        {isPending && <p>제출중...</p>}
       </form>
     </>
   );
