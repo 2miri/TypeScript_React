@@ -10,25 +10,7 @@ export default function Default() {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink
-              to="/about"
-              className={({ isActive, isPending, isTransitioning }) =>
-                [
-                  isActive ? "isActive" : "",
-                  isPending ? "isPending" : "",
-                  isTransitioning ? "isTransition" : "",
-                ].join(" ")
-              }
-              viewTransition
-            >
-              {({ isActive, isPending, isTransitioning }) =>
-                [
-                  isActive ? "isActive" : "none",
-                  isPending ? "isPending" : "",
-                  isTransitioning ? "isTransition" : "",
-                ].join(" ")
-              }
-            </NavLink>
+            <NavLink to="/login">Login</NavLink>
           </li>
         </ul>
       </header>

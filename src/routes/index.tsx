@@ -5,9 +5,9 @@ import DashboardHome from "./pages/dashboard/DashboardHome";
 import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardSetting from "./pages/dashboard/DashboardSetting";
 import Default from "./pages/layouts/Default";
-import DashboardLayout from "./pages/layouts/DashboardLayout";
 import Post from "./post/Post";
 import PostDetail from "./post/PostDetail";
+import Login from "./pages/auth/Login";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +22,18 @@ const router = createBrowserRouter([
         element: <About />,
         loader: async () => {
           await new Promise((resolve) => setTimeout(resolve, 2000));
+        },
+      },
+      {
+        path: "/login",
+        Component: Login,
+        action: async ({ request }) => {
+          const formData = await request.formData();
+          const email = formData.get("email");
+          const pw = formData.get("pw");
+          console.log(email, pw);
+
+          return { message: "로그인 성공" };
         },
       },
       { path: "/post/*", Component: Post },
