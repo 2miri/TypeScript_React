@@ -1,10 +1,10 @@
-import { star, thumbnail01 } from "../../assets/movies/assets";
+import { star } from "../../assets/movies/assets";
 
 export default function MovieListItem({
+  poster_path,
+  release_date,
   title,
   vote_average,
-  release_date,
-  poster_path,
 }: MovieType) {
   return (
     <>

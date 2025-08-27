@@ -1,75 +1,39 @@
-import { useEffect, useState } from "react";
+import { Suspense, useMemo } from "react";
 import MovieHeader from "./MovieHeader";
 import MovieList from "./MovieList";
 import MovieMain from "./MovieMain";
 import { movieAxios } from "../../api/axios";
-import { useInView } from "react-intersection-observer";
+import MovieLoader from "./MovieLoader";
+import { ErrorBoundary } from "react-error-boundary";
+import MovieError from "./MovieError";
+import { useMovieStore } from "../../store/movieStore";
+
+async function fetchCategory(endpoint: string, page: number) {
+  // await new Promise((resolve) =>
+  //   setTimeout(
+  //     resolve,
+  //     [1000, 2000, 3000, 4000, 5000][Math.floor(Math.random() * 5)]
+  //   )
+  // );
+  const { data } = await movieAxios.get(`${endpoint}?page=${page}`);
+  return data; // Promise 객체
+}
 
 export default function Movie() {
-  const [nowData, setNowData] = useState<MovieType[]>([]);
-  const [nowLoading, setNowLoading] = useState(false);
-  const [nowError, setNowError] = useState<Error | null>(null);
-  // 페이징
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const { ref } = useInView({
-    threshold: 0.5, // 50% 노출되면 렌더링
-    rootMargin: "200px",
-    onChange: (inView: boolean) => {
-      if (inView && !nowLoading && hasMore) {
-        setPage((page) => page + 1);
-      }
-    },
-  });
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const { signal } = controller;
-    const fetchCategory = async (
-      endpoint: string,
-      setData: React.Dispatch<React.SetStateAction<MovieType[]>>,
-      setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-      setError: React.Dispatch<React.SetStateAction<Error | null>>
-    ) => {
-      setLoading(true);
-      setError(null);
-
-      // await new Promise((resolve) =>
-      //   setTimeout(
-      //     resolve,
-      //     [1000, 2000, 3000, 4000, 5000][Math.floor(Math.random() * 5)]
-      //   )
-      // );
-
-      try {
-        const {
-          data: { results, total_pages },
-        } = await movieAxios.get(`/${endpoint}?page=${page}`, {
-          signal,
-        });
-        setHasMore(page < total_pages);
-        if (page === 1) setData(results);
-        else setData((data) => [...data, ...results]);
-      } catch (e) {
-        if (e instanceof Error && e.name !== "CanceledError") setError(e);
-      } finally {
-        if (!controller.signal.aborted) setLoading(false);
-      }
-    };
-    fetchCategory("now_playing", setNowData, setNowLoading, setNowError);
-    return () => controller.abort();
-  }, [page]);
+  const page = useMovieStore((state) => state.page);
+  const fetchCategoryMemo = useMemo(
+    () => fetchCategory("now_playing", page),
+    [page]
+  );
   return (
     <>
       <MovieHeader />
       <MovieMain />
-      <MovieList
-        title="Now Playing"
-        movies={nowData}
-        loading={nowLoading}
-        error={nowError}
-      />
-      <div ref={ref}></div>
+      <ErrorBoundary fallback={<MovieError title="Now Playing" />}>
+        <Suspense fallback={<MovieLoader title="Now Playing" />}>
+          <MovieList title="Now Playing" promise={fetchCategoryMemo} />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

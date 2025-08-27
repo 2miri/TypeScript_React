@@ -1,18 +1,25 @@
-import MovieError from "./MovieError";
+import { use } from "react";
 import MovieListItem from "./MovieListItem";
-import MovieLoader from "./MovieLoader";
+import { useMovieStore } from "../../store/movieStore";
 
 export default function MovieList({
   title,
-  movies,
-  loading,
-  error,
+  promise,
 }: {
   title: string;
-  movies: MovieType[];
-  loading: boolean;
-  error: Error | null;
+  promise: Promise<{ results: MovieType[]; total_pages: number }>;
 }) {
+  const page = useMovieStore((state) => state.page);
+  const setPage = useMovieStore((state) => state.setPage);
+  const { results: movies, total_pages } = use(promise);
+  const pageUp = () => {
+    const currentPage = Math.min(page + 1, total_pages);
+    setPage(currentPage);
+  };
+  const pageDown = () => {
+    const currentPage = Math.max(page - 1, 1);
+    setPage(currentPage);
+  };
   return (
     <>
       <article className="bg-black px-4 pt-4 xs:px-0">
@@ -25,11 +32,22 @@ export default function MovieList({
               movies.map((movie) => (
                 <MovieListItem key={movie.id} {...movie} />
               ))}
-            {/* loading... */}
-            {loading && <MovieLoader />}
           </div>
-          {/* error */}
-          {error && <MovieError error={error} />}
+          {/* 이전, 다음 버튼 */}
+          <div className="grid grid-cols-2 gap-4 my-8">
+            <button
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              onClick={pageDown}
+            >
+              Prev
+            </button>
+            <button
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              onClick={pageUp}
+            >
+              Next
+            </button>
+          </div>
         </section>
       </article>
     </>
