@@ -1,4 +1,6 @@
+import MovieError from "./MovieError";
 import MovieListItem from "./MovieListItem";
+import MovieLoader from "./MovieLoader";
 
 export default function MovieList({
   title,
@@ -23,7 +25,11 @@ export default function MovieList({
               movies.map((movie) => (
                 <MovieListItem key={movie.id} {...movie} />
               ))}
+            {/* loading... */}
+            {loading && <MovieLoader />}
           </div>
+          {/* error */}
+          {error && <MovieError error={error} />}
         </section>
       </article>
     </>
