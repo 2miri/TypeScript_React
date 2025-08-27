@@ -20,10 +20,11 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        Component: DashboardLayout,
+        path: "/group",
+        // Component: DashboardLayout,
         children: [
           {
-            path: "/dashboard",
+            path: "dashboard",
             Component: Dashboard,
             children: [
               {
