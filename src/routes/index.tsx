@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         path: "/:locale?/about",
         element: <About />,
       },
-      { path: "/post?/:id?", Component: Post },
+      { path: "/post/*", Component: Post },
       { path: "/post/:id/detail/:detail", Component: PostDetail },
       {
         path: "/group",
@@ -50,6 +50,10 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: "*",
+        element: <h1>404 Not Fount!</h1>,
       },
     ],
   },
