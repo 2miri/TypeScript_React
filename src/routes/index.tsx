@@ -6,6 +6,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import DashboardSetting from "./pages/dashboard/DashboardSetting";
 import Default from "./pages/layouts/Default";
 import DashboardLayout from "./pages/layouts/DashboardLayout";
+import Post from "./post/Post";
+import PostDetail from "./post/PostDetail";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,8 @@ const router = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
+      { path: "/post/:id", Component: Post },
+      { path: "/post/:id/detail/:detail", Component: PostDetail },
       {
         path: "/group",
         // Component: DashboardLayout,
