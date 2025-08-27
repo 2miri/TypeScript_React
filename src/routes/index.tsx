@@ -5,11 +5,15 @@ import About from "./pages/About";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    Component: Home,
   },
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/post",
+    element: <h1>Post Page</h1>,
   },
 ]);
 
