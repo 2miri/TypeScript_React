@@ -20,6 +20,9 @@ const router = createBrowserRouter([
       {
         path: "/:locale?/about",
         element: <About />,
+        loader: async () => {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        },
       },
       { path: "/post/*", Component: Post },
       { path: "/post/:id/detail/:detail", Component: PostDetail },
