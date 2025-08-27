@@ -18,10 +18,10 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/about",
+        path: "/:locale?/about",
         element: <About />,
       },
-      { path: "/post/:id", Component: Post },
+      { path: "/post?/:id?", Component: Post },
       { path: "/post/:id/detail/:detail", Component: PostDetail },
       {
         path: "/group",
