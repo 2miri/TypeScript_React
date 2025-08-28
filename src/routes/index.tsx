@@ -4,6 +4,7 @@ import Post from "./pages/post/Post";
 import Default from "./layouts/Default";
 import PostLoader from "./pages/post/PostLoader";
 import { axiosInstance } from "../api/axios";
+import PostLoading from "./pages/post/PostLoading";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
           const { data } = await axiosInstance.get("/posts");
           return data;
         },
+        HydrateFallback: PostLoading,
       },
     ],
   },

@@ -11,7 +11,11 @@ export default function Default() {
           <NavLink to="/post">Post</NavLink>
         </li>
         <li>
-          <NavLink to="/post-loader">Post-Loader</NavLink>
+          <NavLink to="/post-loader">
+            {({ isPending }) =>
+              isPending ? "Post-Loader(Loading...)" : "Post-Loader"
+            }
+          </NavLink>
         </li>
       </ul>
       <Outlet />
