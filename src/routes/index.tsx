@@ -5,6 +5,7 @@ import Default from "./layouts/Default";
 import PostLoader from "./pages/post/PostLoader";
 import { axiosInstance } from "../api/axios";
 import PostLoading from "./pages/post/PostLoading";
+import PostError from "./pages/post/PostError";
 
 const router = createBrowserRouter([
   {
@@ -22,10 +23,11 @@ const router = createBrowserRouter([
         path: "/post-loader",
         Component: PostLoader,
         loader: async () => {
-          const { data } = await axiosInstance.get("/posts");
+          const { data } = await axiosInstance.get("/posts2");
           return data;
         },
         HydrateFallback: PostLoading,
+        errorElement: <PostError />,
       },
     ],
   },
